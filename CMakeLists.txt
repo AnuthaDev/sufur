@@ -18,6 +18,12 @@ qt_add_qml_module(appsufur
     QML_FILES Main.qml
 )
 
+find_library(LIBSUFUR_LIBRARY sufur HINTS ${CMAKE_SOURCE_DIR}/libsufur/buildDir)
+
+if(NOT LIBSUFUR_LIBRARY)
+    message(FATAL_ERROR "libsufur not found")
+endif()
+
 set_target_properties(appsufur PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
@@ -27,6 +33,7 @@ set_target_properties(appsufur PROPERTIES
 )
 
 target_link_libraries(appsufur
+       PRIVATE ${LIBSUFUR_LIBRARY}
     PRIVATE Qt6::Quick
 )
 
