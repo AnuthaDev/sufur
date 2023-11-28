@@ -3,7 +3,10 @@ import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import com.sufur.MyClass
+
 Window {
+    id: window
     width: 540
     height: 720
     maximumHeight: height
@@ -13,6 +16,8 @@ Window {
     minimumWidth: width
     visible: true
     title: qsTr("Sufur")
+
+
     ColumnLayout{
         spacing: 3
         id: main_column
@@ -37,8 +42,8 @@ Window {
         }
         ComboBox {
             id: device_combo
-            model: [ "None" ]
-            enabled: false
+            model: [ MyClass.index ]
+            enabled: true
             Layout.fillWidth: true
             Layout.preferredHeight: 26
 
@@ -93,7 +98,7 @@ Window {
             width: 200
             Layout.preferredHeight: 26
 
-            model: [ "FAT32 (Default)" ]
+            model: [ "FAT32 (Default)", "NTFS" ]
         }
 
         Text {
