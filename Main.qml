@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Dialogs
+import QtCore
 
 import com.sufur.MyClass
 
@@ -15,6 +17,7 @@ Window {
     minimumHeight: height
     minimumWidth: width
     visible: true
+    color: palette.window
     title: qsTr("Sufur")
 
 
@@ -33,41 +36,55 @@ Window {
             id: drive_props
             text: qsTr("Drive Properties")
             font.pointSize: 20
+            color: palette.text
         }
         Text {
             id: device_txt
             text: qsTr("Device")
             font.pointSize: 12
+            color: palette.text
+
 
         }
         ComboBox {
             id: device_combo
-            model: [ MyClass.index ]
-            enabled: true
+            model: MyClass.model
             Layout.fillWidth: true
             Layout.preferredHeight: 26
-
-
+            enabled: model.length > 0
+            displayText: model.length === 0 ? "No USB devices detected" : currentText
         }
         Text {
             id: bootsel_txt
             text: qsTr("Boot Selection")
             font.pointSize: 12
+            color: palette.text
+
 
         }
         RowLayout{
             Layout.fillWidth: true
             ComboBox {
                 id: bootsel_combo
-                model: [ "Disk or ISO image (Please Select)" ]
-                enabled: false
+                model: ["Disk or ISO image (Please Select)", "Non Bootable"]
+                // model: [fileDialog.selectedFile.toString().length === 0 ? "Disk or ISO image (Please Select)":fileDialog.selectedFile, "Non Bootable"]
+                enabled: device_combo.model.length > 0
                 Layout.preferredHeight: 26
                 Layout.fillWidth: true
+
+                onActivated: {
+                    var txt = currentIndex
+                    model = ["Disk or ISO image (Please Select)", "Non Bootable"];
+                    currentIndex = txt
+                }
 
             }
             Button{
                 id: bootsel_button
                 text: "SELECT"
+                onClicked: {
+                    fileDialog.open()
+                }
 
             }
         }
@@ -76,11 +93,15 @@ Window {
             id: format_ops
             text: qsTr("Format Options")
             font.pointSize: 20
+            color: palette.text
+
         }
         Text {
             id: vol_txt
             text: qsTr("Volume label")
             font.pointSize: 12
+            color: palette.text
+
         }
         TextField{
             id: vol_field
@@ -91,6 +112,8 @@ Window {
             id: fs_txt
             text: qsTr("File System")
             font.pointSize: 12
+            color: palette.text
+
 
         }
         ComboBox {
@@ -105,20 +128,25 @@ Window {
             id: status_head
             text: qsTr("Status")
             font.pointSize: 20
+            color: palette.text
+
         }
         Rectangle{
-            color: "#eeeeee"
             id: status_txt
             Layout.fillWidth: true
 
 
             width: parent.width
             height: childrenRect.height
+            color: palette.mid
+
             Text {
                 text: qsTr("READY")
                 font.pointSize: 12
                 horizontalAlignment: Text.AlignHCenter
                 width: parent.width
+                color: palette.text
+
             }
         }
         RowLayout{
@@ -138,13 +166,15 @@ Window {
     }
     Text{
         id: numdev_txt
-        text: "0 devices found"
+        text: device_combo.model.length +  " devices found"
         font.pointSize: 11
         anchors{
             left: parent.left
             bottom: parent.bottom
             leftMargin: 5
         }
+        color: palette.text
+
     }
 
 
@@ -159,4 +189,19 @@ Window {
             rightMargin: 5
         }
     }
+
+    FileDialog{
+        id: fileDialog
+        title: "Pick ISO file"
+        currentFolder: StandardPaths.standardLocations(StandardPaths.DownloadLocation)[0]
+        onAccepted: {
+            bootsel_combo.model = [selectedFile.toString(), "Non Bootable"]
+        }
+    }
+
+
+    SystemPalette {
+         id: palette
+         colorGroup: SystemPalette.Active
+     }
 }
