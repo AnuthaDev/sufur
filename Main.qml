@@ -5,7 +5,7 @@ import QtQuick.Layouts
 import QtQuick.Dialogs
 import QtCore
 
-import com.sufur.MyClass
+import com.sufur.Driver
 
 Window {
     id: window
@@ -48,7 +48,7 @@ Window {
         }
         ComboBox {
             id: device_combo
-            model: MyClass.model
+            model: Driver.model
             Layout.fillWidth: true
             Layout.preferredHeight: 26
             enabled: model.length > 0
@@ -155,6 +155,11 @@ Window {
             Button{
                 id: start_btn
                 text: "START"
+                onClicked: {
+                    if(bootsel_combo.currentIndex === 1){  // Non-bootable selected
+                     Driver.doStuff()
+                    }
+                }
             }
             Button{
                 id: close_btn

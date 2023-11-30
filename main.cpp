@@ -1,6 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "myclass.h"
+#include "driver.h"
 
 
 
@@ -10,8 +10,8 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    MyClass *myClass = new MyClass();
-    qmlRegisterSingletonInstance("com.sufur.MyClass", 1, 0, "MyClass", myClass);
+    Driver *driver = new Driver();
+    qmlRegisterSingletonInstance("com.sufur.Driver", 1, 0, "Driver", driver);
     const QUrl url(u"qrc:/sufur/Main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
         &app, []() { QCoreApplication::exit(-1); },

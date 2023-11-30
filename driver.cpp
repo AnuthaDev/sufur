@@ -1,18 +1,18 @@
-#include "myclass.h"
+#include "driver.h"
 
-QString MyClass::index() const
+QString Driver::index() const
 {
     return m_index;
 }
 
 
-QList<QString> MyClass::model() const
+QList<QString> Driver::model() const
 {
     return m_model;
 }
 
 
-MyClass::MyClass(){
+Driver::Driver(){
     usb_drive *val = NULL;
     int num_devs = enumerate_usb_mass_storage(&val);
     m_model = *new QList<QString>();
@@ -23,5 +23,10 @@ MyClass::MyClass(){
     }
 
     emit modelChanged();
+
+}
+
+void Driver::doStuff(){
+    qDebug()<<"The beginning of the end\n";
 
 }

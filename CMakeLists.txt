@@ -10,8 +10,8 @@ qt_standard_project_setup()
 
 qt_add_executable(appsufur
     main.cpp
-    myclass.h
-    myclass.cpp
+    driver.h
+    driver.cpp
 )
 
 qt_add_qml_module(appsufur

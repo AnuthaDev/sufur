@@ -1,5 +1,5 @@
-#ifndef MYCLASS_H
-#define MYCLASS_H
+#ifndef DRIVER_H
+#define DRIVER_H
 
 #include <QGuiApplication>
 #include <QQuickView>
@@ -11,7 +11,7 @@ extern "C" {
 
 }
 
-class MyClass : public QObject
+class Driver : public QObject
 {
     Q_OBJECT
 
@@ -21,9 +21,10 @@ class MyClass : public QObject
 public:
     QString index() const;
     QList<QString> model() const;
-    MyClass();
+    Driver();
 
-//public slots:
+public slots:
+    void doStuff();
 
 signals:
     void indexChanged();
@@ -32,4 +33,4 @@ private:
     QString m_index = "null";
     QList<QString> m_model;
 };
-#endif // MYCLASS_H
+#endif // DRIVER_H
