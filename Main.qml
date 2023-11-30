@@ -53,6 +53,12 @@ Window {
             Layout.preferredHeight: 26
             enabled: model.length > 0
             displayText: model.length === 0 ? "No USB devices detected" : currentText
+            palette{
+                button: palette.button
+                text: palette.text
+                buttonText: palette.buttonText
+                window: palette.window
+            }
         }
         Text {
             id: bootsel_txt
@@ -76,7 +82,20 @@ Window {
                     var txt = currentIndex
                     model = ["Disk or ISO image (Please Select)", "Non Bootable"];
                     currentIndex = txt
+
+                    console.log(bootsel_combo.palette.base)
                 }
+                palette{
+                    button: palette.button
+                    text: palette.text
+                    buttonText: palette.buttonText
+                    window: palette.window
+                }
+
+
+
+
+
 
             }
             Button{
@@ -84,6 +103,11 @@ Window {
                 text: "SELECT"
                 onClicked: {
                     fileDialog.open()
+                }
+                palette{
+                    button: palette.button
+                    buttonText: palette.buttonText
+                    window: palette.window
                 }
 
             }
@@ -107,6 +131,13 @@ Window {
             id: vol_field
             text: "Ubuntu"
             Layout.fillWidth: true
+            palette{
+                button: palette.button
+                buttonText: palette.buttonText
+                window: palette.window
+                base: palette.base
+                text: palette.text
+            }
         }
         Text {
             id: fs_txt
@@ -122,6 +153,12 @@ Window {
             Layout.preferredHeight: 26
 
             model: [ "FAT32 (Default)", "NTFS" ]
+            palette{
+                button: palette.button
+                text: palette.text
+                buttonText: palette.buttonText
+                window: palette.window
+            }
         }
 
         Text {
@@ -160,11 +197,21 @@ Window {
                      Driver.doStuff()
                     }
                 }
+                palette{
+                    button: palette.button
+                    buttonText: palette.buttonText
+                    window: palette.window
+                }
             }
             Button{
                 id: close_btn
                 text: "CLOSE"
                 onClicked: Qt.callLater(Qt.quit)
+                palette{
+                    button: palette.button
+                    buttonText: palette.buttonText
+                    window: palette.window
+                }
             }
         }
 
@@ -203,7 +250,6 @@ Window {
             bootsel_combo.model = [selectedFile.toString(), "Non Bootable"]
         }
     }
-
 
     SystemPalette {
          id: palette
