@@ -1,4 +1,4 @@
-# Sufur: Sufur is not Rufus
+# SUFUR: SUFUr is not Rufus
 
 Sufur is a tool that aims to mimic the capabilities of Rufus on Linux
 ![Sufur Screenshot](assets/screenshot.jpg)
